@@ -11,6 +11,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StorageService } from '../services/storage.service';
+import { ClienteService } from '../services/domain/cliente.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { StorageService } from '../services/storage.service';
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
+    ClienteService,
     CategoriaService
   ]
 })
