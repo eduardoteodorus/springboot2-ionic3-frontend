@@ -1,3 +1,4 @@
+import { ProdutoDTO } from './../../models/produto.dto';
 import { ProdutoService } from './../../services/domain/produto.service.';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -36,6 +37,26 @@ export class CarrinhoPage {
         error => {});
 
     });
+  }
+
+  removeItem(produto: ProdutoDTO) {
+    this.items = this.carrinhoService.removeProduto(produto).items;
+  }
+
+  increaseQuantity(produto: ProdutoDTO) {
+    this.items = this.carrinhoService.increaseQuantity(produto).items;
+  }
+
+  decreaseQuantity(produto: ProdutoDTO) {
+    this.items = this.carrinhoService.decreaseQuantity(produto).items;
+  }
+
+  total() : number {
+    return this.carrinhoService.total();
+  }  
+
+  goOn() {
+    this.navCtrl.setRoot('CategoriasPage');
   }
 
 }
