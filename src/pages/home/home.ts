@@ -11,8 +11,8 @@ import { NavController, IonicPage, MenuController } from 'ionic-angular';
 export class HomePage {
 
   cred: CredenciaisDTO = {
-    email: "",
-    senha: ""
+    email: "nelio.cursos@gmail.com",
+    senha: "123"
   }
 
   constructor(

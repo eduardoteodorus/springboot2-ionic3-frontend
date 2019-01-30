@@ -38,4 +38,8 @@ export class CategoriasPage {
       });
   }
 
+  showProdutos(categoria: CategoriaDTO) {
+    this.navCtrl.push('ProdutosPage', {categoriaId: categoria.id});    
+  }
+
 }
