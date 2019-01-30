@@ -43,6 +43,10 @@ export class ProdutosPage {
       },
       error => {});
     });    
-  }  
+  } 
+  
+  showDetail(produto: ProdutoDTO) {
+    this.navCtrl.push('ProdutoDetailPage', { produtoId: produto.id });
+  }
 
 }
