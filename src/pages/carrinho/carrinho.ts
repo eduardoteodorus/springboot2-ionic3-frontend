@@ -59,4 +59,8 @@ export class CarrinhoPage {
     this.navCtrl.setRoot('CategoriasPage');
   }
 
+  checkout() {
+    this.navCtrl.push('SelecaoEnderecoPage');
+  }
+
 }
