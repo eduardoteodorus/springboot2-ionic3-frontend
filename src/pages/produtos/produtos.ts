@@ -1,15 +1,8 @@
 import { ProdutoService } from './../../services/domain/produto.service.';
 import { ProdutoDTO } from './../../models/produto.dto';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { API_CONFIG } from '../../config/api.config';
-
-/**
- * Generated class for the ProdutosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -23,15 +16,26 @@ export class ProdutosPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public produtoService: ProdutoService) {
+    public produtoService: ProdutoService,
+    public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
-   let categoriaId = this.navParams.get('categoriaId');
+    this.loadData();
+  }
+
+  loadData() {
+    let categoriaId = this.navParams.get('categoriaId');
+
+   let loader = this.presentLoading();
+
    this.produtoService.findByCategoria(categoriaId)
     .subscribe(resp => {
       this.items = resp['content'];
       this.loadImageUrls();
+      loader.dismiss();
+    }, error => {
+      loader.dismiss();
     });
   }
 
@@ -47,6 +51,23 @@ export class ProdutosPage {
   
   showDetail(produto: ProdutoDTO) {
     this.navCtrl.push('ProdutoDetailPage', { produtoId: produto.id });
+  }
+
+  //modal loading...
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde..."
+    });
+    loader.present();
+    return loader;
+  }
+
+  //refresh by pushing
+  doRefresh(refresher) {
+    this.loadData();
+    setTimeout(() => {
+      refresher.complete();
+    }, 2000);
   }
 
 }
