@@ -15,6 +15,7 @@ import { StorageService } from '../services/storage.service';
 import { ClienteService } from '../services/domain/cliente.service';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor.';
 import { CarrinhoService } from '../services/domain/carrinho.service';
+import { ImageUtilService } from '../services/image-util.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CarrinhoService } from '../services/domain/carrinho.service';
     ClienteService,
     CategoriaService,
     ProdutoService,
-    CarrinhoService
+    CarrinhoService,
+    ImageUtilService
   ]
 })
 export class AppModule {}
