@@ -11,7 +11,8 @@ import { API_CONFIG } from '../../config/api.config';
 })
 export class ProdutosPage {
 
-  items: ProdutoDTO[];
+  items: ProdutoDTO[] = [];
+  page: number = 0;
 
   constructor(
     public navCtrl: NavController, 
@@ -29,24 +30,29 @@ export class ProdutosPage {
 
    let loader = this.presentLoading();
 
-   this.produtoService.findByCategoria(categoriaId)
+   this.produtoService.findByCategoria(categoriaId, this.page, 10)
     .subscribe(resp => {
-      this.items = resp['content'];
-      this.loadImageUrls();
+      let inicio = this.items.length;
+      this.items = this.items.concat(resp['content']);
+      let fim = this.items.length - 1;
+      this.loadImageUrls(inicio, fim);
       loader.dismiss();
     }, error => {
       loader.dismiss();
     });
   }
 
-  loadImageUrls() {
-    this.items.map(item => {
+  loadImageUrls(inicio: number, fim : number) {
+
+    for (var i=inicio; i<=fim; i++) {
+      let item = this.items[i];
+      
       this.produtoService.getSmallImageFromBucket(item.id)
       .subscribe(response => {
         item.imageUrl = `${API_CONFIG.bucketBaseUrl}/prod${item.id}-small.jpg`;
       },
       error => {});
-    });    
+    }      
   } 
   
   showDetail(produto: ProdutoDTO) {
@@ -63,10 +69,20 @@ export class ProdutosPage {
   }
 
   //refresh by pulling
-  doRefresh(refresher) {
+  doRefresh(eventRefresher) {
+    this.page = 0;
+    this.items = [];
     this.loadData();
     setTimeout(() => {
-      refresher.complete();
+      eventRefresher.complete();
+    }, 2000);
+  }
+
+  doInfinite(eventInfiniteScroll) {
+    this.page++;
+    this.loadData();
+    setTimeout(() => {
+      eventInfiniteScroll.complete();
     }, 2000);
   }
 
