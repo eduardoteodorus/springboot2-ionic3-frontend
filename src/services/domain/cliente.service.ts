@@ -7,8 +7,15 @@ import { ClienteDTO } from '../../models/cliente.dto';
 
 @Injectable()
 export class ClienteService {
-    constructor(public http: HttpClient, public storage: StorageService) {
+    constructor(
+        public http: HttpClient,
+        public storage: StorageService
+       ) {
 
+    }
+
+    findById(id: string) {
+        return this.http.get(`${API_CONFIG.baseUrl}/clientes/${id}`);
     }
 
     findByEmail(email: string) : Observable<any> {
