@@ -62,7 +62,7 @@ export class ProdutosPage {
     return loader;
   }
 
-  //refresh by pushing
+  //refresh by pulling
   doRefresh(refresher) {
     this.loadData();
     setTimeout(() => {
