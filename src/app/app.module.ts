@@ -9,8 +9,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StorageService } from '../services/storage.service';
 import { ClienteService } from '../services/domain/cliente.service';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor.';
